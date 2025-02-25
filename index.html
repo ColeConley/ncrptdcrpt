@@ -129,6 +129,17 @@
     }
     </script>
 
+    <script>
+        function copyToClipboard(textAreaId) {
+    let textArea = document.getElementById(textAreaId);
+    textArea.removeAttribute("readonly"); // Temporarily make editable
+    textArea.select();
+    document.execCommand("copy"); // Copy to clipboard
+    textArea.setAttribute("readonly", true); // Restore readonly state
+    alert("Copied to clipboard!");
+}
+    </script>
+
 
 </body>
 </html>
