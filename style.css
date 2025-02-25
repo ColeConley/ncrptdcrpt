@@ -1,7 +1,7 @@
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: #6495ED;
-    color: #6495ED;
+    background-color: #000000;
+    color: #000000;
     text-align: center;
     margin: 50px;
 }
@@ -23,7 +23,7 @@ body {
 }
 
 h2 {
-    color: #ffcc00;
+    color: #7fff00;
 }
 
 textarea {
@@ -37,6 +37,15 @@ textarea {
     padding: 10px;
     font-size: 16px;
 }
+
+.short-textbox {
+    width: 100%;    /* Match the width of other textboxes */
+    height: 30px;   /* Make it shorter */
+    resize: none;   /* Prevent resizing */
+    padding: 5px;
+    font-size: 14px;
+}
+
 
 button {
     padding: 12px 24px;
