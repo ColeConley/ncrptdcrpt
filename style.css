@@ -15,9 +15,9 @@ body {
 }
 
 .box {
-    width: 30px;
+    width: 3000px;
     background: #2a2a3b;
-    padding: 30px;
+    padding: 50px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
