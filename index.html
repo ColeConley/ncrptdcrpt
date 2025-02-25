@@ -15,7 +15,7 @@
             <textarea id="inputText1" placeholder="Enter your message..."></textarea>
             <textarea id="keyText1" class="short-textbox" placeholder="Enter Key to use, if left blank one will be generated."></textarea>
             <br>
-            <button onclick="exampleEncrypt()">Submit</button>
+            <button onclick="pasteToOutput();generateRandomKey()">Submit</button>
             <h2>Encrypted Data</h2>
             <textarea id="outputText1" readonly></textarea>
             <button onclick="copyToClipboard('outputText1')">Copy</button>
@@ -47,6 +47,7 @@
     <script src="oldScripts.js"></script>
     <script src="encryption.js"></script>
     <script src="decryption.js"></script>
+    <script src="generateKey.js"></script>
 
 </body>
 </html>

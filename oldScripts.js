@@ -7,6 +7,13 @@ function copyToClipboard(textAreaId) {
     alert("Copied to clipboard!");
 }
 
+function pasteToOutput() {
+    // Get the value from the input textarea
+    let inputText = document.getElementById("inputText1").value;
+    
+    // Set the value to the output textarea
+    document.getElementById("outputText1").value = inputText;
+}
 
 // Function to Decrypt Text using AES-256
 async function decryptText() {
