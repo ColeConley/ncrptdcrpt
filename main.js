@@ -84,15 +84,15 @@ async function runEncryptionDecryption() {
     const message = "This is a secret message!";
     const { encryptedMessage, iv } = await encryptText(message, key);
 
-    console.log("🔑 AES Key (Base64):", base64Key);
-    console.log("📡 IV (Base64):", iv);
-    console.log("🔒 Encrypted Message (Base64):", encryptedMessage);
+    // console.log("🔑 AES Key (Base64):", base64Key);
+    // console.log("📡 IV (Base64):", iv);
+    // console.log("🔒 Encrypted Message (Base64):", encryptedMessage);
 
     // Simulating the receiver decrypting the message
     const importedKey = await importKeyFromBase64(base64Key);
     const decryptedMessage = await decryptText(encryptedMessage, iv, importedKey);
 
-    console.log("✅ Decrypted Message:", decryptedMessage);
+    // console.log("✅ Decrypted Message:", decryptedMessage);
 }
 
 // Utility: Import Key from Base64
@@ -147,7 +147,7 @@ async function runDecryption() {
     // Run decryptText Function and set result to decryptedMessage
     const decryptedMessage = await decryptText(encryptedMessage, iv, importedKey);
 
-    console.log("✅ Decrypted Message:", decryptedMessage);
+    // console.log("✅ Decrypted Message:", decryptedMessage);
 
     // Set value of outputText2 to decryptedMessage
     document.getElementById("outputText2").value = decryptedMessage;
