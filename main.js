@@ -1,20 +1,6 @@
-// Utility Functions
-function arrayBufferToBase64(buffer) {
-    return btoa(String.fromCharCode(...new Uint8Array(buffer)));
-}
-
-function base64ToArrayBuffer(base64) {
-    const binaryString = atob(base64);
-    const bytes = new Uint8Array(binaryString.length);
-    for (let i = 0; i < binaryString.length; i++) {
-        bytes[i] = binaryString.charCodeAt(i);
-    }
-    return bytes.buffer;
-}
-
 // Step 1: Generate AES-256 Key
 async function generateKey() {
-    return await window.crypto.subtle.generateKey(
+    const key = await window.crypto.subtle.generateKey(
         {
             name: "AES-GCM",
             length: 256,
@@ -22,69 +8,93 @@ async function generateKey() {
         true,
         ["encrypt", "decrypt"]
     );
+    return key;
 }
 
-// Step 2: Encrypt Text
-async function encryptText(plainText, aesKey) {
+// Step 2: Convert CryptoKey to Base64
+async function exportKeyToBase64(key) {
+    const rawKey = await window.crypto.subtle.exportKey("raw", key);
+    const buffer = new Uint8Array(rawKey);
+    return btoa(String.fromCharCode(...buffer)); // Convert to Base64
+}
+
+// Step 3: Encrypt a Message
+async function encryptText(plaintext, key) {
     const encoder = new TextEncoder();
-    const data = encoder.encode(plainText);
+    const data = encoder.encode(plaintext);
+    const iv = window.crypto.getRandomValues(new Uint8Array(12)); // Generate random IV
 
-    // Generate a random IV (12 bytes for AES-GCM)
-    const iv = window.crypto.getRandomValues(new Uint8Array(12));
-
-    // Encrypt the text
     const encryptedData = await window.crypto.subtle.encrypt(
-        {
-            name: "AES-GCM",
-            iv: iv
-        },
-        aesKey,
+        { name: "AES-GCM", iv: iv },
+        key,
         data
     );
 
-    // Return Base64 encoded IV and Ciphertext
     return {
-        iv: arrayBufferToBase64(iv),
-        ciphertext: arrayBufferToBase64(encryptedData)
+        ciphertext: arrayBufferToBase64(encryptedData),
+        iv: arrayBufferToBase64(iv)
     };
 }
 
-// Step 3: Decrypt Text
-async function decryptText(base64Iv, base64Ciphertext, aesKey) {
-    const iv = new Uint8Array(base64ToArrayBuffer(base64Iv));
-    const encryptedData = base64ToArrayBuffer(base64Ciphertext);
+// Step 4: Decrypt a Message
+async function decryptText(ciphertext, iv, key) {
+    const encryptedData = base64ToArrayBuffer(ciphertext);
+    const ivArray = base64ToArrayBuffer(iv);
 
-    // Decrypt the data
     const decryptedData = await window.crypto.subtle.decrypt(
-        {
-            name: "AES-GCM",
-            iv: iv
-        },
-        aesKey,
+        { name: "AES-GCM", iv: ivArray },
+        key,
         encryptedData
     );
 
-    // Convert decrypted ArrayBuffer to text
-    const decoder = new TextDecoder();
-    return decoder.decode(decryptedData);
+    return new TextDecoder().decode(decryptedData);
 }
 
-// Step 4: Full Workflow Execution
-async function testEncryptionDecryption() {
-    const aesKey = await generateKey(); // Generate AES Key
-
-    const originalText = "Hello, this is a secret message!";
-    console.log("Original Text:", originalText);
-
-    // Encrypt
-    const encrypted = await encryptText(originalText, aesKey);
-    console.log("IV (Base64):", encrypted.iv);
-    console.log("Ciphertext (Base64):", encrypted.ciphertext);
-
-    // Decrypt
-    const decryptedText = await decryptText(encrypted.iv, encrypted.ciphertext, aesKey);
-    console.log("Decrypted Text:", decryptedText);
+// Utility: Convert ArrayBuffer to Base64
+function arrayBufferToBase64(buffer) {
+    return btoa(String.fromCharCode(...new Uint8Array(buffer)));
 }
 
-// Run the test
-testEncryptionDecryption();
+// Utility: Convert Base64 to ArrayBuffer
+function base64ToArrayBuffer(base64) {
+    const binary = atob(base64);
+    const buffer = new Uint8Array(binary.length);
+    for (let i = 0; i < binary.length; i++) {
+        buffer[i] = binary.charCodeAt(i);
+    }
+    return buffer.buffer;
+}
+
+// 🔹 Full End-to-End Flow
+async function runEncryptionDecryption() {
+    const key = await generateKey();
+    const base64Key = await exportKeyToBase64(key);
+
+    const message = "This is a secret message!";
+    const { ciphertext, iv } = await encryptText(message, key);
+
+    console.log("🔑 AES Key (Base64):", base64Key);
+    console.log("📡 IV (Base64):", iv);
+    console.log("🔒 Encrypted Message (Base64):", ciphertext);
+
+    // Simulating the receiver decrypting the message
+    const importedKey = await importKeyFromBase64(base64Key);
+    const decryptedMessage = await decryptText(ciphertext, iv, importedKey);
+
+    console.log("✅ Decrypted Message:", decryptedMessage);
+}
+
+// Utility: Import Key from Base64
+async function importKeyFromBase64(base64Key) {
+    const rawKey = base64ToArrayBuffer(base64Key);
+    return await window.crypto.subtle.importKey(
+        "raw",
+        rawKey,
+        { name: "AES-GCM" },
+        true,
+        ["encrypt", "decrypt"]
+    );
+}
+
+// Run the Encryption & Decryption Flow
+runEncryptionDecryption();
