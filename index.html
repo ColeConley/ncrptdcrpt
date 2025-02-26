@@ -14,9 +14,10 @@
             <h2>Encrypt</h2>
             <textarea id="inputText1" placeholder="Enter your message..."></textarea>
             <textarea id="keyText1" class="short-textbox" placeholder="Ciphertext Key" readonly></textarea>
-            <textarea id="ivText1" class="short-textbox" placeholder="IV: Save to use for decryption"readonly></textarea>
+            <textarea id="ivText1" class="short-textbox" placeholder="IV: Save to use for decryption" readonly></textarea>
             <br>
-            <button onclick="pasteToOutput();generateKey()">Submit</button>
+            <!-- <button onclick="pasteToOutput();generateKey()">Submit</button> -->
+            <button onclick="runEncryption()">Submit</button>
             <h2>Encrypted Data</h2>
             <textarea id="outputText1" readonly></textarea>
             <button onclick="copyToClipboard('outputText1')">Copy</button>

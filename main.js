@@ -42,14 +42,14 @@ async function encryptText(plaintext, key) {
     );
 
     return {
-        ciphertext: arrayBufferToBase64(encryptedData),
+        encryptedMessage: arrayBufferToBase64(encryptedData),
         iv: arrayBufferToBase64(iv)
     };
 }
 
 // Step 4: Decrypt a Message
-async function decryptText(ciphertext, iv, key) {
-    const encryptedData = base64ToArrayBuffer(ciphertext);
+async function decryptText(encryptedMessage, iv, key) {
+    const encryptedData = base64ToArrayBuffer(encryptedMessage);
     const ivArray = base64ToArrayBuffer(iv);
 
     const decryptedData = await window.crypto.subtle.decrypt(
@@ -76,21 +76,21 @@ function base64ToArrayBuffer(base64) {
     return buffer.buffer;
 }
 
-// 🔹 Full End-to-End Flow
+// 🔹 Full End-to-End Flow Encryption AND Decryption Together
 async function runEncryptionDecryption() {
     const key = await generateKey();
     const base64Key = await exportKeyToBase64(key);
 
     const message = "This is a secret message!";
-    const { ciphertext, iv } = await encryptText(message, key);
+    const { encryptedMessage, iv } = await encryptText(message, key);
 
     console.log("🔑 AES Key (Base64):", base64Key);
     console.log("📡 IV (Base64):", iv);
-    console.log("🔒 Encrypted Message (Base64):", ciphertext);
+    console.log("🔒 Encrypted Message (Base64):", encryptedMessage);
 
     // Simulating the receiver decrypting the message
     const importedKey = await importKeyFromBase64(base64Key);
-    const decryptedMessage = await decryptText(ciphertext, iv, importedKey);
+    const decryptedMessage = await decryptText(encryptedMessage, iv, importedKey);
 
     console.log("✅ Decrypted Message:", decryptedMessage);
 }
@@ -109,7 +109,45 @@ async function importKeyFromBase64(base64Key) {
 
 // Run the Encryption & Decryption Flow
 runEncryptionDecryption();
+
+
+
+// RUN ENCRYPTION FUNCTION: Run the Encryption Flow
+async function runEncryption() {
+    // set Variables for key and base64Key (base64Key is what we can show to the user)
+    const key = await generateKey();
+    const base64Key = await exportKeyToBase64(key);
+
+    // Set Value of inputText1 to the user's input in inputText1 Text Box
+    const inputText1 = document.getElementById("inputText1").value;
+    
+    // Set the value of cipertext and iv, which are the encrypted message and generated IV
+    const { encryptedMessage, iv } = await encryptText(inputText1, key);
+
+    // Print out Key, IV and Encrypted Message in Console
+    console.log("🔑 AES Key (Base64):", base64Key);
+    console.log("📡 IV (Base64):", iv);
+    console.log("🔒 Encrypted Message (Base64):", encryptedMessage);
+
+    // Set the value of keyText1, ivText1, and outputText1 with the Generated Key Generated IV and Encrypted Message
+    document.getElementById("keyText1").value = base64Key;
+    document.getElementById("ivText1").value = iv;
+    document.getElementById("outputText1").value = encryptedMessage;
+}
+
+
+// RUN DECRYPTION FUNCTION: Run the Decryption Flow
+async function runDecryption() {
+    const { encryptedMessage, iv } = await encryptText(message, key);
+    const importedKey = await importKeyFromBase64(base64Key);
+    const decryptedMessage = await decryptText(encryptedMessage, iv, importedKey);
+
+    console.log("✅ Decrypted Message:", decryptedMessage);
+}
+
 // END Encryption and Decryption Flow Section
+
+
 
 // Copy and Paste Functions
 // Copy textArea Function
