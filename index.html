@@ -29,7 +29,7 @@
             <textarea id="keyText2" class="short-textbox" placeholder="Ciphertext Key"></textarea>
             <textarea id="ivText2" class="short-textbox" placeholder="IV: Enter IV from encryption"></textarea>
             <br>
-            <button onclick="decryptText()">Submit</button>
+            <button onclick="runDecryption()">Submit</button>
             <h2>Decrypted Data</h2>
             <textarea id="outputText2" readonly></textarea>
             <button onclick="copyToClipboard('outputText2')">Copy</button>
@@ -38,7 +38,6 @@
 
 
     <script src="main.js"></script>
-    <script src="generateKey.js"></script>
 
 </body>
 </html>

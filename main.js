@@ -1,12 +1,12 @@
 // First Setting Some Variables
-let inputText1 = document.getElementById("inputText1").value;
-let outputText1 = document.getElementById("outputText1").value;
-let keyText1 = document.getElementById("keyText1").value;
-let ivText1 = document.getElementById("ivText1").value;
-let inputText2 = document.getElementById("inputText2").value;
-let outputText2 = document.getElementById("outputText2").value;
-let keyText2 = document.getElementById("keyText2").value;
-let ivText2 = document.getElementById("ivText2").value;
+// let inputText1 = document.getElementById("inputText1").value;
+// let outputText1 = document.getElementById("outputText1").value;
+// let keyText1 = document.getElementById("keyText1").value;
+// let ivText1 = document.getElementById("ivText1").value;
+// let inputText2 = document.getElementById("inputText2").value;
+// let outputText2 = document.getElementById("outputText2").value;
+// let keyText2 = document.getElementById("keyText2").value;
+// let ivText2 = document.getElementById("ivText2").value;
 
 // START Encryption and Decryption Flow Section
 // Step 1: Generate AES-256 Key
@@ -124,10 +124,10 @@ async function runEncryption() {
     // Set the value of cipertext and iv, which are the encrypted message and generated IV
     const { encryptedMessage, iv } = await encryptText(inputText1, key);
 
-    // Print out Key, IV and Encrypted Message in Console
-    console.log("🔑 AES Key (Base64):", base64Key);
-    console.log("📡 IV (Base64):", iv);
-    console.log("🔒 Encrypted Message (Base64):", encryptedMessage);
+    // // Print out Key, IV and Encrypted Message in Console
+    // console.log("🔑 AES Key (Base64):", base64Key);
+    // console.log("📡 IV (Base64):", iv);
+    // console.log("🔒 Encrypted Message (Base64):", encryptedMessage);
 
     // Set the value of keyText1, ivText1, and outputText1 with the Generated Key Generated IV and Encrypted Message
     document.getElementById("keyText1").value = base64Key;
@@ -138,11 +138,19 @@ async function runEncryption() {
 
 // RUN DECRYPTION FUNCTION: Run the Decryption Flow
 async function runDecryption() {
-    const { encryptedMessage, iv } = await encryptText(message, key);
+    // Set Variables for (encryptedMessage, iv, and base64Key) as the user inputs for (inputText2, keyText2, and ivText2)
+    const encryptedMessage = document.getElementById("inputText2").value;
+    const base64Key = document.getElementById("keyText2").value;
+    const iv = document.getElementById("ivText2").value;
+    // Run importKeyFromBase64 Function and set result to importedKey
     const importedKey = await importKeyFromBase64(base64Key);
+    // Run decryptText Function and set result to decryptedMessage
     const decryptedMessage = await decryptText(encryptedMessage, iv, importedKey);
 
     console.log("✅ Decrypted Message:", decryptedMessage);
+
+    // Set value of outputText2 to decryptedMessage
+    document.getElementById("outputText2").value = decryptedMessage;
 }
 
 // END Encryption and Decryption Flow Section
