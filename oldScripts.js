@@ -18,7 +18,7 @@ function pasteToOutput() {
 // Function to Decrypt Text using AES-256
 async function decryptText() {
     if (!aesKey) {
-        alert("No encryption key found! Encrypt something first.");
+        //alert("No encryption key found! Encrypt something first.");
         return;
     }
 

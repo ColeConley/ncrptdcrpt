@@ -13,9 +13,10 @@
         <div class="box">
             <h2>Encrypt</h2>
             <textarea id="inputText1" placeholder="Enter your message..."></textarea>
-            <textarea id="keyText1" class="short-textbox" placeholder="Enter Key to use, if left blank one will be generated."></textarea>
+            <textarea id="keyText1" class="short-textbox" placeholder="Ciphertext Key" readonly></textarea>
+            <textarea id="ivText1" class="short-textbox" placeholder="IV: Save to use for decryption"readonly></textarea>
             <br>
-            <button onclick="pasteToOutput();generateRandomKey()">Submit</button>
+            <button onclick="pasteToOutput();generateKey()">Submit</button>
             <h2>Encrypted Data</h2>
             <textarea id="outputText1" readonly></textarea>
             <button onclick="copyToClipboard('outputText1')">Copy</button>
@@ -24,7 +25,8 @@
         <div class="box">
             <h2>Decrypt</h2>
             <textarea id="inputText2" placeholder="Enter your message..."></textarea>
-            <textarea id="keyText2" class="short-textbox" placeholder="Optional"></textarea>
+            <textarea id="keyText2" class="short-textbox" placeholder="Ciphertext Key"></textarea>
+            <textarea id="ivText2" class="short-textbox" placeholder="IV: Enter IV from encryption"></textarea>
             <br>
             <button onclick="decryptText()">Submit</button>
             <h2>Decrypted Data</h2>
@@ -44,6 +46,7 @@
 }
     </script>
 
+    <script src="main.js"></script>
     <script src="oldScripts.js"></script>
     <script src="encryption.js"></script>
     <script src="decryption.js"></script>
