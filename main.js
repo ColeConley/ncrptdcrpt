@@ -1,3 +1,14 @@
+// First Setting Some Variables
+let inputText1 = document.getElementById("inputText1").value;
+let outputText1 = document.getElementById("outputText1").value;
+let keyText1 = document.getElementById("keyText1").value;
+let ivText1 = document.getElementById("ivText1").value;
+let inputText2 = document.getElementById("inputText2").value;
+let outputText2 = document.getElementById("outputText2").value;
+let keyText2 = document.getElementById("keyText2").value;
+let ivText2 = document.getElementById("ivText2").value;
+
+// START Encryption and Decryption Flow Section
 // Step 1: Generate AES-256 Key
 async function generateKey() {
     const key = await window.crypto.subtle.generateKey(
@@ -98,3 +109,23 @@ async function importKeyFromBase64(base64Key) {
 
 // Run the Encryption & Decryption Flow
 runEncryptionDecryption();
+// END Encryption and Decryption Flow Section
+
+// Copy and Paste Functions
+// Copy textArea Function
+function copyToClipboard(textAreaId) {
+    let textArea = document.getElementById(textAreaId);
+    textArea.removeAttribute("readonly"); // Temporarily make editable
+    textArea.select();
+    document.execCommand("copy"); // Copy to clipboard
+    textArea.setAttribute("readonly", true); // Restore readonly state
+    alert("Copied to clipboard!");
+}
+// Paste inputText1 into outPutText1 
+function pasteToOutput() {
+    // Get the value from the input textarea
+    let inputText1 = document.getElementById("inputText1").value;
+    
+    // Set the value to the output textarea
+    document.getElementById("outputText1").value = inputText1;
+}

@@ -35,21 +35,8 @@
         </div>
     </div>
 
-    <script>
-        function copyToClipboard(textAreaId) {
-    let textArea = document.getElementById(textAreaId);
-    textArea.removeAttribute("readonly"); // Temporarily make editable
-    textArea.select();
-    document.execCommand("copy"); // Copy to clipboard
-    textArea.setAttribute("readonly", true); // Restore readonly state
-    alert("Copied to clipboard!");
-}
-    </script>
 
     <script src="main.js"></script>
-    <script src="oldScripts.js"></script>
-    <script src="encryption.js"></script>
-    <script src="decryption.js"></script>
     <script src="generateKey.js"></script>
 
 </body>
