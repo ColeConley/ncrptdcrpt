@@ -1,3 +1,5 @@
+// Author Cole Conley
+
 // First Setting Some Variables
 // let inputText1 = document.getElementById("inputText1").value;
 // let outputText1 = document.getElementById("outputText1").value;
@@ -84,15 +86,15 @@ async function runEncryptionDecryption() {
     const message = "This is a secret message!";
     const { encryptedMessage, iv } = await encryptText(message, key);
 
-    // console.log("🔑 AES Key (Base64):", base64Key);
-    // console.log("📡 IV (Base64):", iv);
-    // console.log("🔒 Encrypted Message (Base64):", encryptedMessage);
+    // console.log(" AES Key (Base64):", base64Key);
+    // console.log(" IV (Base64):", iv);
+    // console.log(" Encrypted Message (Base64):", encryptedMessage);
 
     // Simulating the receiver decrypting the message
     const importedKey = await importKeyFromBase64(base64Key);
     const decryptedMessage = await decryptText(encryptedMessage, iv, importedKey);
 
-    // console.log("✅ Decrypted Message:", decryptedMessage);
+    // console.log(" Decrypted Message:", decryptedMessage);
 }
 
 // Utility: Import Key from Base64
@@ -125,9 +127,9 @@ async function runEncryption() {
     const { encryptedMessage, iv } = await encryptText(inputText1, key);
 
     // // Print out Key, IV and Encrypted Message in Console
-    // console.log("🔑 AES Key (Base64):", base64Key);
-    // console.log("📡 IV (Base64):", iv);
-    // console.log("🔒 Encrypted Message (Base64):", encryptedMessage);
+    // console.log(" AES Key (Base64):", base64Key);
+    // console.log(" IV (Base64):", iv);
+    // console.log(" Encrypted Message (Base64):", encryptedMessage);
 
     // Set the value of keyText1, ivText1, and outputText1 with the Generated Key Generated IV and Encrypted Message
     document.getElementById("keyText1").value = base64Key;
@@ -147,7 +149,7 @@ async function runDecryption() {
     // Run decryptText Function and set result to decryptedMessage
     const decryptedMessage = await decryptText(encryptedMessage, iv, importedKey);
 
-    // console.log("✅ Decrypted Message:", decryptedMessage);
+    // console.log(" Decrypted Message:", decryptedMessage);
 
     // Set value of outputText2 to decryptedMessage
     document.getElementById("outputText2").value = decryptedMessage;
