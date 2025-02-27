@@ -15,7 +15,7 @@ body {
 }
 
 .box {
-    width: 300px;
+    width: 500px;
     background: #FAF5E9; /* Lighter beige  */
     padding: 40px;
     border-radius: 10px;
@@ -24,7 +24,7 @@ body {
     border: 2px solid #5A3E36; /* Dark brown border */
 }
 
-h2 {
+h1 {
     color: #5A3E36; /* Dark brown */
     font-weight: 600;
 }
