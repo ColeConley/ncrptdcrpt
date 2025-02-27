@@ -1,15 +1,5 @@
 // Author Cole Conley
 
-// First Setting Some Variables
-// let inputText1 = document.getElementById("inputText1").value;
-// let outputText1 = document.getElementById("outputText1").value;
-// let keyText1 = document.getElementById("keyText1").value;
-// let ivText1 = document.getElementById("ivText1").value;
-// let inputText2 = document.getElementById("inputText2").value;
-// let outputText2 = document.getElementById("outputText2").value;
-// let keyText2 = document.getElementById("keyText2").value;
-// let ivText2 = document.getElementById("ivText2").value;
-
 // START Encryption and Decryption Flow Section
 // Step 1: Generate AES-256 Key
 async function generateKey() {
@@ -63,6 +53,51 @@ async function decryptText(encryptedMessage, iv, key) {
     return new TextDecoder().decode(decryptedData);
 }
 
+// RUN ENCRYPTION FUNCTION: Run the Encryption Flow
+async function runEncryption() {
+    const key = await generateKey();
+    const base64Key = await exportKeyToBase64(key);
+    const inputText1 = document.getElementById("inputText1").value;
+    const { encryptedMessage, iv } = await encryptText(inputText1, key);
+    const encryptedIVMessage = await combineIvMessage(iv, encryptedMessage);
+
+
+    document.getElementById("keyText1").value = base64Key;
+    document.getElementById("outputText1").value = encryptedIVMessage;
+}
+
+
+// RUN DECRYPTION FUNCTION: Run the Decryption Flow
+async function runDecryption() {
+
+    const encryptedIVMessage = document.getElementById("inputText2").value;
+    const { encryptedMessage, iv } = await reverseCombineIvMessage(encryptedIVMessage);
+    const base64Key = document.getElementById("keyText2").value;
+    const importedKey = await importKeyFromBase64(base64Key);
+    const decryptedMessage = await decryptText(encryptedMessage, iv, importedKey);
+
+    document.getElementById("outputText2").value = decryptedMessage;
+}
+
+// Full End-to-End Flow Encryption AND Decryption Together (Mainly for testing not used in actual flow)
+async function runEncryptionDecryption() {
+    const key = await generateKey();
+    const base64Key = await exportKeyToBase64(key);
+    const message = "This is a secret message!";
+    const { encryptedMessage, iv } = await encryptText(message, key);
+
+    // Simulating the receiver decrypting the message
+    const importedKey = await importKeyFromBase64(base64Key);
+    const decryptedMessage = await decryptText(encryptedMessage, iv, importedKey);
+}
+// Run the Encryption & Decryption Flow (Mainly for testing, not used in actual flow)
+runEncryptionDecryption();
+
+// END Encryption and Decryption Flow Section
+
+
+// START Utility Functions Section
+
 // UTILITY FUNCTION: Convert ArrayBuffer to Base64
 function arrayBufferToBase64(buffer) {
     return btoa(String.fromCharCode(...new Uint8Array(buffer)));
@@ -78,24 +113,6 @@ function base64ToArrayBuffer(base64) {
     return buffer.buffer;
 }
 
-// 🔹 Full End-to-End Flow Encryption AND Decryption Together
-async function runEncryptionDecryption() {
-    const key = await generateKey();
-    const base64Key = await exportKeyToBase64(key);
-
-    const message = "This is a secret message!";
-    const { encryptedMessage, iv } = await encryptText(message, key);
-
-    // console.log(" AES Key (Base64):", base64Key);
-    // console.log(" IV (Base64):", iv);
-    // console.log(" Encrypted Message (Base64):", encryptedMessage);
-
-    // Simulating the receiver decrypting the message
-    const importedKey = await importKeyFromBase64(base64Key);
-    const decryptedMessage = await decryptText(encryptedMessage, iv, importedKey);
-
-    // console.log(" Decrypted Message:", decryptedMessage);
-}
 
 // UTILITY FUNCTION: Import Key from Base64
 async function importKeyFromBase64(base64Key) {
@@ -108,61 +125,6 @@ async function importKeyFromBase64(base64Key) {
         ["encrypt", "decrypt"]
     );
 }
-
-// Run the Encryption & Decryption Flow
-runEncryptionDecryption();
-
-
-
-// RUN ENCRYPTION FUNCTION: Run the Encryption Flow
-async function runEncryption() {
-    // set Variables for key and base64Key (base64Key is what we can show to the user)
-    const key = await generateKey();
-    const base64Key = await exportKeyToBase64(key);
-
-    // Set Value of inputText1 to the user's input in inputText1 Text Box
-    const inputText1 = document.getElementById("inputText1").value;
-    
-    // Set the value of cipertext and iv, which are the encrypted message and generated IV
-    const { encryptedMessage, iv } = await encryptText(inputText1, key);
-    // Combine IV and Encrypted Message, Base64 Encode the string and set encryptedIVMessage to the result
-    const encryptedIVMessage = await combineIvMessage(iv, encryptedMessage);
-
-    // // Print out Key, IV and Encrypted Message in Console
-    // console.log(" AES Key (Base64):", base64Key);
-    // console.log(" IV (Base64):", iv);
-    // console.log(" Encrypted Message (Base64):", encryptedMessage);
-
-    // Set the value of keyText1 and outputText1 with the Generated Key and Encrypted Message
-    document.getElementById("keyText1").value = base64Key;
-    // document.getElementById("ivText1").value = iv;
-    document.getElementById("outputText1").value = encryptedIVMessage;
-}
-
-
-// RUN DECRYPTION FUNCTION: Run the Decryption Flow
-async function runDecryption() {
-
-    // Set Variables for (encryptedMessage) as the user input for (inputText2)
-    const encryptedIVMessage = document.getElementById("inputText2").value;
-
-    // Split encryptedIVMessage and Base64 Decode
-    const { encryptedMessage, iv } = await reverseCombineIvMessage(encryptedIVMessage);
-    // Set Value of Key as the Key Inputted by User in keyText2
-    const base64Key = document.getElementById("keyText2").value;
-    // const iv = document.getElementById("ivText2").value;
-    // Run importKeyFromBase64 Function and set result to importedKey
-    const importedKey = await importKeyFromBase64(base64Key);
-    // Run decryptText Function and set result to decryptedMessage
-    const decryptedMessage = await decryptText(encryptedMessage, iv, importedKey);
-
-    // console.log(" Decrypted Message:", decryptedMessage);
-
-    // Set value of outputText2 to decryptedMessage
-    document.getElementById("outputText2").value = decryptedMessage;
-}
-
-
 // UTILITY FUNCTION: Combine IV and Encrypted Message and then Base64 Encode the result
 async function combineIvMessage(iv, message) {
     const combined = iv + ":" + message;
@@ -177,10 +139,6 @@ async function reverseCombineIvMessage(encryptedIVMessage) {
     return { iv, encryptedMessage };
 }
 
-// END Encryption and Decryption Flow Section
-
-
-
 // Copy and Paste Functions
 // Copy textArea Function
 function copyToClipboard(textAreaId) {
@@ -193,9 +151,9 @@ function copyToClipboard(textAreaId) {
 }
 // Paste inputText1 into outPutText1 
 function pasteToOutput() {
-    // Get the value from the input textarea
-    let inputText1 = document.getElementById("inputText1").value;
+    let inputText1 = document.getElementById("inputText1").value; // Get the value from the input textarea
     
-    // Set the value to the output textarea
-    document.getElementById("outputText1").value = inputText1;
+    document.getElementById("outputText1").value = inputText1; // Set the value to the output textarea
 }
+
+// END Utility Functions Section
