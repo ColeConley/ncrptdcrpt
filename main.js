@@ -126,16 +126,24 @@ async function reverseCombineIvMessage(encryptedIVMessage) {
 }
 
 // Copy and Paste Functions
-// Copy textArea Function
+// UTILITY FUNCTION: Copy textArea Function Updated since document.execCommand is Deprecated
 function copyToClipboard(textAreaId) {
     let textArea = document.getElementById(textAreaId);
-    textArea.removeAttribute("readonly"); // Temporarily make editable
-    textArea.select();
-    document.execCommand("copy"); // Copy to clipboard
-    textArea.setAttribute("readonly", true); // Restore readonly state
-    alert("Copied to clipboard!");
+    if (!textArea) {
+        console.error("Text area not found");
+        return;
+    }
+
+    navigator.clipboard.writeText(textArea.value)
+        .then(() => {
+            alert("Copied to clipboard!");
+        })
+        .catch(err => {
+            console.error("Failed to copy: ", err);
+        });
 }
-// Paste inputText1 into outPutText1 
+
+// UTILITY FUNCTION: Paste inputText1 into outPutText1 
 function pasteToOutput() {
     let inputText1 = document.getElementById("inputText1").value; // Get the value from the input textarea
     
