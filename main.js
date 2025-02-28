@@ -79,20 +79,6 @@ async function runDecryption() {
     document.getElementById("outputText2").value = decryptedMessage;
 }
 
-// Full End-to-End Flow Encryption AND Decryption Together (Mainly for testing not used in actual flow)
-async function runEncryptionDecryption() {
-    const key = await generateKey();
-    const base64Key = await exportKeyToBase64(key);
-    const message = "This is a secret message!";
-    const { encryptedMessage, iv } = await encryptText(message, key);
-
-    // Simulating the receiver decrypting the message
-    const importedKey = await importKeyFromBase64(base64Key);
-    const decryptedMessage = await decryptText(encryptedMessage, iv, importedKey);
-}
-// Run the Encryption & Decryption Flow (Mainly for testing, not used in actual flow)
-runEncryptionDecryption();
-
 // END Encryption and Decryption Flow Section
 
 
