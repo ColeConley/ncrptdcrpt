@@ -151,3 +151,26 @@ function pasteToOutput() {
 }
 
 // END Utility Functions Section
+
+
+// Copy Function Copy Message and Key
+function copyToClipboard(textAreaId, keyAreaId) {
+    let textArea = document.getElementById(textAreaId);
+    let keyArea = document.getElementById(keyAreaId);
+
+    if (!textArea || !keyArea) {
+        console.error("Text area or key area not found");
+        return;
+    }
+
+    // Construct the formatted text
+    let textToCopy = `Message:\n${textArea.value}\n\nKey:\n${keyArea.value}`;
+
+    navigator.clipboard.writeText(textToCopy)
+        .then(() => {
+            alert("Copied to clipboard!");
+        })
+        .catch(err => {
+            console.error("Failed to copy: ", err);
+        });
+}
