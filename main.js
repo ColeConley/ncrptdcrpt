@@ -126,34 +126,7 @@ async function reverseCombineIvMessage(encryptedIVMessage) {
 }
 
 // Copy and Paste Functions
-// UTILITY FUNCTION: Copy textArea Function Updated since document.execCommand is Deprecated
-function copyToClipboard(textAreaId) {
-    let textArea = document.getElementById(textAreaId);
-    if (!textArea) {
-        console.error("Text area not found");
-        return;
-    }
-
-    navigator.clipboard.writeText(textArea.value)
-        .then(() => {
-            alert("Copied to clipboard!");
-        })
-        .catch(err => {
-            console.error("Failed to copy: ", err);
-        });
-}
-
-// UTILITY FUNCTION: Paste inputText1 into outPutText1 
-function pasteToOutput() {
-    let inputText1 = document.getElementById("inputText1").value; // Get the value from the input textarea
-    
-    document.getElementById("outputText1").value = inputText1; // Set the value to the output textarea
-}
-
-// END Utility Functions Section
-
-
-// Copy Function Copy Message and Key
+// UTILITY FUNCTION: Copy textAreaId and keyAreaId Function Updated since document.execCommand is Deprecated, Copies Encrypted Message and Key in a format to send
 function copyToClipboard(textAreaId, keyAreaId) {
     let textArea = document.getElementById(textAreaId);
     let keyArea = document.getElementById(keyAreaId);
@@ -174,3 +147,12 @@ function copyToClipboard(textAreaId, keyAreaId) {
             console.error("Failed to copy: ", err);
         });
 }
+
+// UTILITY FUNCTION: Paste inputText1 into outPutText1 
+function pasteToOutput() {
+    let inputText1 = document.getElementById("inputText1").value; // Get the value from the input textarea
+    
+    document.getElementById("outputText1").value = inputText1; // Set the value to the output textarea
+}
+
+// END Utility Functions Section
