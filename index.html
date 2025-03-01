@@ -1,6 +1,5 @@
 <!-- Author Cole Conley -->
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -14,12 +13,12 @@
         <div class="box">
             <h1>Encrypt</h1>
             <textarea id="inputText1" placeholder="Enter your message..."></textarea>
-            <button class="ui-btn" onclick="runEncryption()"><span>Submit</span></button>
+            <button class="ui-btn" onclick="runEncryption()"><span>Encrypt</span></button>
             <br>
             <h1>Encrypted Data</h1>
             <textarea id="outputText1" placeholder="Encrypted Message will be displayed here..." readonly></textarea>
             <textarea id="keyText1" class="short-textbox" placeholder="Key: Used for Decryption" readonly></textarea>
-            <button onclick="copyToClipboard('outputText1', 'keyText1')">Copy</button>
+            <button class="ui-btn" onclick="copyToClipboard('outputText1', 'keyText1')"><span>Copy</span></button>
         </div>
         
         <div class="box">
@@ -27,14 +26,11 @@
             <textarea id="inputText2" placeholder="Enter your message..."></textarea>
             <textarea id="keyText2" class="short-textbox" placeholder="Enter your Key..."></textarea>
             <br>
-            <button onclick="runDecryption()">Submit</button>
+            <button class="ui-btn" onclick="runDecryption()"><span>Decrypt</span></button>
             <h1>Decrypted Data</h1>
             <textarea id="outputText2" placeholder="Decrypted Message will be displayed here..." readonly></textarea>
-            <!-- <button onclick="copyToClipboard('outputText2')">Copy</button> -->
         </div>
     </div>
-
     <script src="main.js"></script>
-
 </body>
 </html>

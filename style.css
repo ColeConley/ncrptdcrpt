@@ -1,7 +1,7 @@
 body {
     font-family: 'EB Garamond', serif;
-    background-color: #E5D0B5; /* Softened Burberry Beige */
-    color: #2E2E2E; /* Dark gray  */
+    background-color: #E5D0B5;   /* Softened Burberry Beige */
+    color: #2E2E2E;   /* Dark gray  */
     text-align: center;
     margin: 50px;
 }
@@ -16,16 +16,16 @@ body {
 
 .box {
     width: 500px;
-    background: #FAF5E9; /* Lighter beige  */
+    background: #FAF5E9;   /* Lighter beige  */
     padding: 40px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    color: #2E2E2E; /* Dark gray text for readability */
-    border: 2px solid #5A3E36; /* Dark brown border */
+    color: #2E2E2E;   /* Dark gray text for readability */
+    border: 2px solid #5A3E36;   /* Dark brown border */
 }
 
 h1 {
-    color: #5A3E36; /* Dark brown */
+    color: #5A3E36;   /* Dark brown */
     font-weight: 600;
 }
 
@@ -34,8 +34,8 @@ textarea {
     height: 100px;
     margin-bottom: 10px;
     background: #FFFFFF; /* White */
-    color: #2E2E2E; /* Dark gray text */
-    border: 1px solid #B6A28C; /* Subtle brown-gray border */
+    color: #2E2E2E;   /* Dark gray text */
+    border: 1px solid #B6A28C;   /* Subtle brown-gray border */
     border-radius: 5px;
     padding: 10px;
     font-size: 16px;
@@ -58,7 +58,7 @@ button {
     padding: 12px 24px;
     font-size: 16px;
     cursor: pointer;
-    background: #5A3E36; /* Dark brown  */
+    background: #5A3E36;   /* Dark brown  */
     color: #FFFFFF;
     border: none;
     border-radius: 5px;
@@ -66,28 +66,28 @@ button {
 }
 
 button:hover {
-    background: #C8102E; /* Burberry red */
+    background: #C8102E;   /* Burberry red */
     transform: scale(1.05);
 }
 
 
 /* START Button from UIverse */
 
-/* From Uiverse.io by Galahhad */
+/* From Uiverse.io by JaydipPrajapati1910 */
 .ui-btn {
-    --btn-default-bg: rgb(41, 41, 41);
+    --btn-default-bg: #5A3E36;
     --btn-padding: 15px 20px;
-    --btn-hover-bg: rgb(51, 51, 51);
+    --btn-hover-bg: #C8102E;
     --btn-transition: .3s;
     --btn-letter-spacing: .1rem;
     --btn-animation-duration: 1.2s;
     --btn-shadow-color: rgba(0, 0, 0, 0.137);
     --btn-shadow: 0 2px 10px 0 var(--btn-shadow-color);
-    --hover-btn-color: #FAC921;
-    --default-btn-color: #fff;
+    --hover-btn-color: rgb(51, 51, 51);
+    --default-btn-color: #FFFFFF;
     --font-size: 16px;
     /* 👆 this field should not be empty */
-    --font-weight: 600;
+    --font-weight: 500;
     --font-family: Menlo, Roboto Mono, monospace;
     /* 👆 this field should not be empty */
 }
@@ -96,10 +96,13 @@ button:hover {
 
 .ui-btn {
     box-sizing: border-box;
+    border-radius: 10px;
     padding: var(--btn-padding);
-    display: flex;
+    display: block;
+    max-width: 300px;
+    margin: auto;
     align-items: center;
-    justify-content: space;
+    justify-content: center;
     color: var(--default-btn-color);
     font: var(--font-weight) var(--font-size) var(--font-family);
     background: var(--btn-default-bg);

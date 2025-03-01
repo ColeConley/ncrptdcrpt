@@ -26,7 +26,6 @@ async function encryptText(plaintext, key) {
     const encoder = new TextEncoder();
     const data = encoder.encode(plaintext);
     const iv = window.crypto.getRandomValues(new Uint8Array(12)); // Generate random IV
-
     const encryptedData = await window.crypto.subtle.encrypt(
         { name: "AES-GCM", iv: iv },
         key,
@@ -43,7 +42,6 @@ async function encryptText(plaintext, key) {
 async function decryptText(encryptedMessage, iv, key) {
     const encryptedData = base64ToArrayBuffer(encryptedMessage);
     const ivArray = base64ToArrayBuffer(iv);
-
     const decryptedData = await window.crypto.subtle.decrypt(
         { name: "AES-GCM", iv: ivArray },
         key,
@@ -69,7 +67,6 @@ async function runEncryption() {
 
 // RUN DECRYPTION FUNCTION: Run the Decryption Flow
 async function runDecryption() {
-
     const encryptedIVMessage = document.getElementById("inputText2").value;
     const { encryptedMessage, iv } = await reverseCombineIvMessage(encryptedIVMessage);
     const base64Key = document.getElementById("keyText2").value;
