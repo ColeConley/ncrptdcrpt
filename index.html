@@ -33,7 +33,7 @@
 
             <div class="terminal-body">
                 <h2><i class="fas fa-shield-alt"></i> ENCRYPT</h2>
-                <textarea id="inputText1" class="message-area" placeholder="Enter your plaintext message..."></textarea>
+                <textarea id="inputText1" class="message-area" placeholder="Enter your message..."></textarea>
                 <button onclick="runEncryption()"><span>ENCRYPT</span><i class="fas fa-lock"></i></button>
 
                 <div class="output-container">
@@ -41,12 +41,12 @@
                         <h2><i class="fas fa-file-code"></i> CIPHER OUTPUT</h2>
                         <!-- <span class="status" id="encryptStatus">Ready</span> -->
                     </div>
-                    <textarea id="outputText1" class="output-area" placeholder="Encrypted data will appear here..."
+                    <textarea id="outputText1" class="output-area" placeholder="Encrypted data will display here..."
                         readonly></textarea>
                     <button class="copy-btn" onclick="copyToClipboard('outputText1', 'keyText1')">
                         <i class="fas fa-copy"></i> <span>COPY ALL</span>
                     </button>
-                    <textarea id="keyText1" class="short-textbox" placeholder="Encryption key will appear here..." readonly></textarea>
+                    <textarea id="keyText1" class="short-textbox" placeholder="Key will display here..." readonly></textarea>
                 </div>
             </div>
         </div>
@@ -73,7 +73,7 @@
                         <h2><i class="fas fa-file-alt"></i> PLAINTEXT OUTPUT</h2>
                         <!-- <span class="status" id="decryptStatus">Ready</span> -->
                     </div>
-                    <textarea id="outputText2" class="output-area" placeholder="Decrypted message will appear here..."
+                    <textarea id="outputText2" class="output-area" placeholder="Decrypted message will display here..."
                         readonly></textarea>
                     <button class="copy-btn" onclick="copyDecryptedMessage('outputText2')">
                         <i class="fas fa-copy"></i><span>COPY</span>
