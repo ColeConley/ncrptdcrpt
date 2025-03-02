@@ -102,7 +102,6 @@ body {
     display: flex;
     align-items: center;
     border-bottom: 1px solid var(--border);
-    position: relative;
 }
 
 .terminal-controls {
@@ -136,15 +135,11 @@ body {
     font-size: 0.9rem;
     text-transform: uppercase;
     letter-spacing: 1px;
-    position: absolute;
-    left: 225px;
 }
 
 .terminal-lock {
     color: var(--accent);
     font-size: 0.9rem;
-    position: absolute;
-    left: 520px;
 }
 
 .terminal-body {
