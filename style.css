@@ -194,6 +194,7 @@ textarea:focus {
 .short-textbox {
     height: 45px;
     position: relative;
+    overflow: hidden;
 }
 
 button {
@@ -470,7 +471,7 @@ button:hover::before {
 
 
 /* START Button from UIverse */
-
+/* NOT CURRENLTY USED!!! */
 /* From Uiverse.io by JaydipPrajapati1910 */
 .ui-btn {
     --btn-default-bg: #5A3E36;

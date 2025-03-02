@@ -58,8 +58,13 @@ async function runEncryption() {
     const inputText1 = document.getElementById("inputText1").value;
     const { encryptedMessage, iv } = await encryptText(inputText1, key);
     const encryptedIVMessage = await combineIvMessage(iv, encryptedMessage);
+    const emptyTextBox = ""
 
+    // First make sure that outputText1 and keyText1 are cleared from previous time
+    document.getElementById("keyText1").value = emptyTextBox;
+    document.getElementById("outputText1").value = emptyTextBox;
 
+    // Populate outputText1 and keyText1 with encryptedIVMessage and base64Key
     document.getElementById("keyText1").value = base64Key;
     document.getElementById("outputText1").value = encryptedIVMessage;
 }
@@ -72,7 +77,11 @@ async function runDecryption() {
     const base64Key = document.getElementById("keyText2").value;
     const importedKey = await importKeyFromBase64(base64Key);
     const decryptedMessage = await decryptText(encryptedMessage, iv, importedKey);
+    const emptyTextBox = ""
 
+    // First make sure that outputText2 is cleared from previous time
+    document.getElementById("outputText2").value = emptyTextBox;
+    // Populate outputText2 with decryptedMessage
     document.getElementById("outputText2").value = decryptedMessage;
 }
 
