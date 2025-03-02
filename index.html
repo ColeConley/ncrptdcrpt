@@ -1,36 +1,91 @@
-<!-- Author Cole Conley -->
+<!-- Author Cole C -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Encrypt/Decrypt</title>
+    <title>Secure Encrypt/Decrypt</title>
     <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+
 </head>
+
 <body>
+    <canvas id="matrixCanvas" class="matrix-bg"></canvas>
+
+    <div class="header">
+        <h1 class="glitch" data-text="NcrptDcrpt">NcrptDcrpt</h1>
+        <p class="terminal-prompt typewriter">Secure Encryption and Decryption</p>
+    </div>
+
     <div class="container">
-        <div class="box">
-            <h1>Encrypt</h1>
-            <textarea id="inputText1" placeholder="Enter your message..."></textarea>
-            <button class="ui-btn" onclick="runEncryption()"><span>Encrypt</span></button>
-            <br>
-            <h1>Encrypted Data</h1>
-            <textarea id="outputText1" placeholder="Encrypted Message will be displayed here..." readonly></textarea>
-            <textarea id="keyText1" class="short-textbox" placeholder="Key: Used for Decryption" readonly></textarea>
-            <button class="ui-btn" onclick="copyToClipboard('outputText1', 'keyText1')"><span>Copy</span></button>
+        <div class="terminal-box">
+            <div class="terminal-header">
+                <div class="terminal-controls">
+                    <div class="terminal-control terminal-close"></div>
+                    <div class="terminal-control terminal-minimize"></div>
+                    <div class="terminal-control terminal-maximize"></div>
+                </div>
+                <div class="terminal-title">ENCRYPT.sh</div>
+                <div class="terminal-lock"><i class="fas fa-lock"></i></div>
+            </div>
+
+            <div class="terminal-body">
+                <h2><i class="fas fa-shield-alt"></i> ENCRYPT</h2>
+                <textarea id="inputText1" class="message-area" placeholder="Enter your plaintext message..."></textarea>
+                <button onclick="runEncryption()"><span>ENCRYPT</span><i class="fas fa-lock"></i></button>
+
+                <div class="output-container">
+                    <div class="output-label">
+                        <h2><i class="fas fa-file-code"></i> CIPHER OUTPUT</h2>
+                        <!-- <span class="status" id="encryptStatus">Ready</span> -->
+                    </div>
+                    <textarea id="outputText1" class="output-area" placeholder="Encrypted data will appear here..."
+                        readonly></textarea>
+                    <button class="copy-btn" onclick="copyToClipboard('outputText1', 'keyText1')">
+                        <i class="fas fa-copy"></i> <span>COPY ALL</span>
+                    </button>
+                    <textarea id="keyText1" class="short-textbox" placeholder="Encryption key will appear here..."
+                        readonly></textarea>
+                </div>
+            </div>
         </div>
-        
-        <div class="box">
-            <h1>Decrypt</h1>
-            <textarea id="inputText2" placeholder="Enter your message..."></textarea>
-            <textarea id="keyText2" class="short-textbox" placeholder="Enter your Key..."></textarea>
-            <br>
-            <button class="ui-btn" onclick="runDecryption()"><span>Decrypt</span></button>
-            <h1>Decrypted Data</h1>
-            <textarea id="outputText2" placeholder="Decrypted Message will be displayed here..." readonly></textarea>
+
+        <div class="terminal-box">
+            <div class="terminal-header">
+                <div class="terminal-controls">
+                    <div class="terminal-control terminal-close"></div>
+                    <div class="terminal-control terminal-minimize"></div>
+                    <div class="terminal-control terminal-maximize"></div>
+                </div>
+                <div class="terminal-title">DECRYPT.sh</div>
+                <div class="terminal-lock"><i class="fas fa-unlock"></i></div>
+            </div>
+
+            <div class="terminal-body">
+                <h2><i class="fas fa-key"></i> DECRYPT</h2>
+                <textarea id="inputText2" class="message-area" placeholder="Enter encrypted message..."></textarea>
+                <textarea id="keyText2" class="short-textbox" placeholder="Enter decryption key..."></textarea>
+                <button onclick="runDecryption()"><span>DECRYPT</span><i class="fas fa-unlock-alt"></i></button>
+
+                <div class="output-container">
+                    <div class="output-label">
+                        <h2><i class="fas fa-file-alt"></i> PLAINTEXT OUTPUT</h2>
+                        <!-- <span class="status" id="decryptStatus">Ready</span> -->
+                    </div>
+                    <textarea id="outputText2" class="output-area" placeholder="Decrypted message will appear here..."
+                        readonly></textarea>
+                    <button class="copy-btn" onclick="copyToClipboard('outputText2')">
+                        <i class="fas fa-copy"></i><span>COPY</span>
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
+
     <script src="main.js"></script>
 </body>
+
 </html>
