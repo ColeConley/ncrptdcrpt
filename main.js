@@ -58,13 +58,7 @@ async function runEncryption() {
     const inputText1 = document.getElementById("inputText1").value;
     const { encryptedMessage, iv } = await encryptText(inputText1, key);
     const encryptedIVMessage = await combineIvMessage(iv, encryptedMessage);
-    const emptyTextBox = ""
 
-    // First make sure that outputText1 and keyText1 are cleared from previous time
-    document.getElementById("keyText1").value = emptyTextBox;
-    document.getElementById("outputText1").value = emptyTextBox;
-
-    // Populate outputText1 and keyText1 with encryptedIVMessage and base64Key
     document.getElementById("keyText1").value = base64Key;
     document.getElementById("outputText1").value = encryptedIVMessage;
 }
@@ -77,11 +71,7 @@ async function runDecryption() {
     const base64Key = document.getElementById("keyText2").value;
     const importedKey = await importKeyFromBase64(base64Key);
     const decryptedMessage = await decryptText(encryptedMessage, iv, importedKey);
-    const emptyTextBox = ""
 
-    // First make sure that outputText2 is cleared from previous time
-    document.getElementById("outputText2").value = emptyTextBox;
-    // Populate outputText2 with decryptedMessage
     document.getElementById("outputText2").value = decryptedMessage;
 }
 
@@ -186,66 +176,66 @@ function pasteToOutput() {
 
 
 // START Matrix Background Effect Section
-
+// NO LONGER USED WAS CAUSING A BUG CHECK GIT COMMIT HISTORY NOTES FOR DETAILS
 // Matrix background effect
-const canvas = document.getElementById('matrixCanvas');
-const ctx = canvas.getContext('2d');
+// const canvas = document.getElementById('matrixCanvas');
+// const ctx = canvas.getContext('2d');
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+// canvas.width = window.innerWidth;
+// canvas.height = window.innerHeight;
 
-// Characters to be used in the matrix
-const characters = 'ｦｱｳｴｵｶｷｹｺｻｼｽｾｿﾀﾂﾃﾅﾆﾇﾈﾊﾋﾎﾏﾐﾑﾒﾓﾔﾕﾗﾘﾜ01010101';
+// // Characters to be used in the matrix
+// const characters = 'ｦｱｳｴｵｶｷｹｺｻｼｽｾｿﾀﾂﾃﾅﾆﾇﾈﾊﾋﾎﾏﾐﾑﾒﾓﾔﾕﾗﾘﾜ01010101';
 
-const fontSize = 12;
-const columns = canvas.width / fontSize;
+// const fontSize = 12;
+// const columns = canvas.width / fontSize;
 
-// Array to store the y position of each character
-const drops = [];
+// // Array to store the y position of each character
+// const drops = [];
 
-// Initialize the drops array
-for (let i = 0; i < columns; i++) {
-    drops[i] = Math.random() * -100;
-}
+// // Initialize the drops array
+// for (let i = 0; i < columns; i++) {
+//     drops[i] = Math.random() * -100;
+// }
 
-function draw() {
-    // Set a semi-transparent black background to create trailing effect
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+// function draw() {
+//     // Set a semi-transparent black background to create trailing effect
+//     ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+//     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    ctx.fillStyle = '#0f0';
-    ctx.font = fontSize + 'px monospace';
+//     ctx.fillStyle = '#0f0';
+//     ctx.font = fontSize + 'px monospace';
 
-    // Draw each character
-    for (let i = 0; i < drops.length; i++) {
-        // Get a random character from the characters string
-        const text = characters.charAt(Math.floor(Math.random() * characters.length));
+//     // Draw each character
+//     for (let i = 0; i < drops.length; i++) {
+//         // Get a random character from the characters string
+//         const text = characters.charAt(Math.floor(Math.random() * characters.length));
 
-        // Draw the character
-        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+//         // Draw the character
+//         ctx.fillText(text, i * fontSize, drops[i] * fontSize);
 
-        // Reset the drop position if it's off the screen or randomly
-        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-            drops[i] = 0;
-        }
+//         // Reset the drop position if it's off the screen or randomly
+//         if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+//             drops[i] = 0;
+//         }
 
-        // Move the drop down
-        drops[i]++;
-    }
-}
+//         // Move the drop down
+//         drops[i]++;
+//     }
+// }
 
-// Run the draw function at regular intervals
-setInterval(draw, 33);
+// // Run the draw function at regular intervals
+// setInterval(draw, 33);
 
-// Update canvas dimensions on resize
-window.addEventListener('resize', () => {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+// // Update canvas dimensions on resize
+// window.addEventListener('resize', () => {
+//     canvas.width = window.innerWidth;
+//     canvas.height = window.innerHeight;
 
-    // Reset drops array
-    for (let i = 0; i < canvas.width / fontSize; i++) {
-        drops[i] = Math.random() * -100;
-    }
-});
+//     // Reset drops array
+//     for (let i = 0; i < canvas.width / fontSize; i++) {
+//         drops[i] = Math.random() * -100;
+//     }
+// });
 
 // END Matrix Background Canvas Effects Section
