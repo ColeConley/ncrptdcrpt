@@ -145,7 +145,28 @@ function copyToClipboard(textAreaId, keyAreaId) {
         });
 }
 
-// UTILITY FUNCTION: Paste inputText1 into outPutText1 
+// UTILITY FUNCTION: Copy decryptedMessage (outputText2)
+
+function copyDecryptedMessage(textAreaId) {
+    let textArea = document.getElementById(textAreaId);
+
+    if (!textArea) {
+        console.error("No text to copy");
+        return;
+    }
+    // Construct the formatted text
+    let textToCopy = textArea.value;
+
+    navigator.clipboard.writeText(textToCopy)
+        .then(() => {
+            alert("Copied to clipboard!");
+        })
+        .catch(err => {
+            console.error("Failed to copy: ", err);
+        });
+}
+
+// UTILITY FUNCTION: Paste inputText1 into outputText1 
 function pasteToOutput() {
     let inputText1 = document.getElementById("inputText1").value; // Get the value from the input textarea
     
