@@ -639,3 +639,68 @@ button:hover::before {
 }
 
 /* END Button from UIverse */
+
+
+
+/* START Toggle Claude  */
+
+.toggle-container {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 20px;
+    margin-right: 8px;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--input-bg);
+    transition: .4s;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 14px;
+    width: 14px;
+    left: 3px;
+    bottom: 2px;
+    background-color: var(--text);
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: var(--accent);
+}
+
+input:checked + .slider:before {
+    transform: translateX(18px);
+    background-color: var(--terminal);
+}
+
+.toggle-label, .keyless-label {
+    color: var(--accent-alt);
+    font-size: 0.8rem;
+}
+
+/* END Toggle Claude */
