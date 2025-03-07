@@ -62,9 +62,6 @@ async function runEncryption() {
     const keylessMode = document.getElementById('keylessToggle').checked;
     const encryptedKeyIVMessage = await combineKeyIvMessage(base64Key, iv, encryptedMessage);
 
-    document.getElementById("keyText1").value = base64Key;
-    document.getElementById("outputText1").value = encryptedIVMessage;
-
     if (keylessMode) { // If keyless mode is toggle on 
         document.getElementById("outputText1").value = encryptedKeyIVMessage;
     } else { // If keyless mode is toggled off
@@ -164,14 +161,16 @@ async function reverseCombineKeyIvMessage(encryptedKeyIVMessage) {
 function copyToClipboard(textAreaId, keyAreaId) {
     let textArea = document.getElementById(textAreaId);
     let keyArea = document.getElementById(keyAreaId);
+    const keylessMode = document.getElementById('keylessToggle').checked;
 
     if (!textArea || !keyArea) {
         console.error("Text area or key area not found");
         return;
     }
 
-    // Construct the formatted text
-    let textToCopy = `Message:\n${textArea.value}\n\nKey:\n${keyArea.value}`;
+    if(keylessMode) {
+        // Construct the formatted text
+    let textToCopy = textArea.value;
 
     navigator.clipboard.writeText(textToCopy)
         .then(() => {
@@ -180,6 +179,17 @@ function copyToClipboard(textAreaId, keyAreaId) {
         .catch(err => {
             console.error("Failed to copy: ", err);
         });
+    } else {
+        let textToCopy = `Message:\n${textArea.value}\n\nKey:\n${keyArea.value}`;
+
+    navigator.clipboard.writeText(textToCopy)
+        .then(() => {
+            alert("Copied to clipboard!");
+        })
+        .catch(err => {
+            console.error("Failed to copy: ", err);
+        });
+    }
 }
 
 // UTILITY FUNCTION: Copy decryptedMessage (outputText2)
