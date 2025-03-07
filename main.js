@@ -156,6 +156,45 @@ async function reverseCombineKeyIvMessage(encryptedKeyIVMessage) {
     return {key, iv, encryptedMessage };
 }
 
+// Keyless Toggle Functions
+// UTILITY FUNCTION: Event Listener for the Keyless Toggle
+document.addEventListener('DOMContentLoaded', function() {
+    const keylessToggle = document.getElementById('keylessToggle');
+    if (keylessToggle) {
+        keylessToggle.addEventListener('change', function() {
+            toggleKeyVisibility(this.checked);
+        });
+    }
+});
+
+// UTILITY FUNCTION: Function to toggle key visibility
+function toggleKeyVisibility(isKeyless) {
+    const keyText1 = document.getElementById('keyText1');
+    const keyText2 = document.getElementById('keyText2');
+    
+    if (isKeyless) {
+        // Hide key textboxes when keyless is enabled
+        if (keyText1) {
+            keyText1.style.display = 'none';
+            keyText1.setAttribute('data-keyless', 'true');
+        }
+        if (keyText2) {
+            keyText2.style.display = 'none';    
+            keyText2.setAttribute('data-keyless', 'true');
+        }
+    } else {
+        // Show key textboxes when keyless is disabled
+        if (keyText1) {
+            keyText1.style.display = '';
+            keyText1.removeAttribute('data-keyless');
+        }
+        if (keyText2) {
+            keyText2.style.display = '';
+            keyText2.removeAttribute('data-keyless');
+        }
+    }
+}
+
 // Copy and Paste Functions
 // UTILITY FUNCTION: Copy textAreaId and keyAreaId Function Updated since document.execCommand is Deprecated, Copies Encrypted Message and Key in a format to send
 function copyToClipboard(textAreaId, keyAreaId) {
@@ -218,45 +257,6 @@ function pasteToOutput() {
     let inputText1 = document.getElementById("inputText1").value; // Get the value from the input textarea
     
     document.getElementById("outputText1").value = inputText1; // Set the value to the output textarea
-}
-
-// UTILITY FUNCTIONS: Keyless Toggle
-// Add event listener for the keyless toggle
-document.addEventListener('DOMContentLoaded', function() {
-    const keylessToggle = document.getElementById('keylessToggle');
-    if (keylessToggle) {
-        keylessToggle.addEventListener('change', function() {
-            toggleKeyVisibility(this.checked);
-        });
-    }
-});
-
-// Function to toggle key visibility
-function toggleKeyVisibility(isKeyless) {
-    const keyText1 = document.getElementById('keyText1');
-    const keyText2 = document.getElementById('keyText2');
-    
-    if (isKeyless) {
-        // Hide key textboxes when keyless is enabled
-        if (keyText1) {
-            keyText1.style.display = 'none';
-            keyText1.setAttribute('data-keyless', 'true');
-        }
-        if (keyText2) {
-            keyText2.style.display = 'none';    
-            keyText2.setAttribute('data-keyless', 'true');
-        }
-    } else {
-        // Show key textboxes when keyless is disabled
-        if (keyText1) {
-            keyText1.style.display = '';
-            keyText1.removeAttribute('data-keyless');
-        }
-        if (keyText2) {
-            keyText2.style.display = '';
-            keyText2.removeAttribute('data-keyless');
-        }
-    }
 }
 
 // END Utility Functions Section
