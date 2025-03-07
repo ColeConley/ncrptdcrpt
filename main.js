@@ -1,4 +1,4 @@
-// Author Cole Conley
+// Author Cole C
 
 // START Encryption and Decryption Flow Section
 // Step 1: Generate AES-256 Key
@@ -209,9 +209,8 @@ function copyToClipboard(textAreaId, keyAreaId) {
 
     if(keylessMode) {
         // Construct the formatted text
-    let textToCopy = textArea.value;
-
-    navigator.clipboard.writeText(textToCopy)
+        let textToCopy = textArea.value;
+        navigator.clipboard.writeText(textToCopy)
         .then(() => {
             alert("Copied to clipboard!");
         })
@@ -220,8 +219,7 @@ function copyToClipboard(textAreaId, keyAreaId) {
         });
     } else {
         let textToCopy = `Message:\n${textArea.value}\n\nKey:\n${keyArea.value}`;
-
-    navigator.clipboard.writeText(textToCopy)
+        navigator.clipboard.writeText(textToCopy)
         .then(() => {
             alert("Copied to clipboard!");
         })
