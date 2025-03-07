@@ -56,23 +56,46 @@ async function runEncryption() {
     const key = await generateKey();
     const base64Key = await exportKeyToBase64(key);
     const inputText1 = document.getElementById("inputText1").value;
-    const { encryptedMessage, iv } = await encryptText(inputText1, key);
+    const { iv, encryptedMessage } = await encryptText(inputText1, key);
     const encryptedIVMessage = await combineIvMessage(iv, encryptedMessage);
+    // Keyless
+    const keylessMode = document.getElementById('keylessToggle').checked;
+    const encryptedKeyIVMessage = await combineKeyIvMessage(base64Key, iv, encryptedMessage);
 
     document.getElementById("keyText1").value = base64Key;
     document.getElementById("outputText1").value = encryptedIVMessage;
+
+    if (keylessMode) { // If keyless mode is toggle on 
+        document.getElementById("outputText1").value = encryptedKeyIVMessage;
+    } else { // If keyless mode is toggled off
+        document.getElementById("keyText1").value = base64Key;
+        document.getElementById("outputText1").value = encryptedIVMessage;
+    }
 }
 
 
 // RUN DECRYPTION FUNCTION: Run the Decryption Flow
 async function runDecryption() {
-    const encryptedIVMessage = document.getElementById("inputText2").value;
-    const { encryptedMessage, iv } = await reverseCombineIvMessage(encryptedIVMessage);
-    const base64Key = document.getElementById("keyText2").value;
-    const importedKey = await importKeyFromBase64(base64Key);
-    const decryptedMessage = await decryptText(encryptedMessage, iv, importedKey);
+    const keylessMode = document.getElementById('keylessToggle').checked;
 
-    document.getElementById("outputText2").value = decryptedMessage;
+    //Keyless
+    if(keylessMode) { // Keyless Mode Enabled
+        const encryptedKeyIVMessage = document.getElementById("inputText2").value;
+        const { key, iv, encryptedMessage } = await reverseCombineKeyIvMessage(encryptedKeyIVMessage);
+        const base64Key = key;
+        const importedKey = await importKeyFromBase64(base64Key);
+        const decryptedMessage = await decryptText(encryptedMessage, iv, importedKey);
+
+        document.getElementById("outputText2").value = decryptedMessage;
+    } else { // Keyless Mode Disabled
+        const encryptedIVMessage = document.getElementById("inputText2").value;
+        const { iv, encryptedMessage } = await reverseCombineIvMessage(encryptedIVMessage);
+        const base64Key = document.getElementById("keyText2").value;
+        const importedKey = await importKeyFromBase64(base64Key);
+        const decryptedMessage = await decryptText(encryptedMessage, iv, importedKey);
+
+        document.getElementById("outputText2").value = decryptedMessage;
+    }
 }
 
 // END Encryption and Decryption Flow Section
@@ -107,6 +130,7 @@ async function importKeyFromBase64(base64Key) {
         ["encrypt", "decrypt"]
     );
 }
+
 // UTILITY FUNCTION: Combine IV and Encrypted Message and then Base64 Encode the result
 async function combineIvMessage(iv, message) {
     const combined = iv + ":" + message;
@@ -114,11 +138,25 @@ async function combineIvMessage(iv, message) {
     return result;
 }
 
-// UTILITY FUNCTION: Base64 Decode the Encoded String and then Split it by the Delimeter :
+// UTILITY FUNCTION: Base64 Decode the Encoded String of iv:message and then Split it by the Delimeter ":"
 async function reverseCombineIvMessage(encryptedIVMessage) {
     const decodedIVMessage = atob(encryptedIVMessage);
     const [iv, encryptedMessage] = decodedIVMessage.split(":");
     return { iv, encryptedMessage };
+}
+
+// UTILITY FUNCTION: Combine Key, IV, and Encrypted Message and then Base64 Encode the result
+async function combineKeyIvMessage(key, iv, message) {
+    const combined = key + ":" + iv + ":" + message;
+    const result = btoa(combined);
+    return result;
+}
+
+// UTILITY FUNCTION: Base64 Decode the Encoded String of key:iv:message and then Split it by the Delimeter ":"
+async function reverseCombineKeyIvMessage(encryptedKeyIVMessage) {
+    const decodedIVMessage = atob(encryptedKeyIVMessage);
+    const [key, iv, encryptedMessage] = decodedIVMessage.split(":");
+    return {key, iv, encryptedMessage };
 }
 
 // Copy and Paste Functions
