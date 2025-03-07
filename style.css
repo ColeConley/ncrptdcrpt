@@ -701,7 +701,7 @@ input:checked + .slider:before {
 
 .toggle-label, .keyless-label {
     color: var(--accent-alt);
-    font-size: 0.8rem;
+    font-size: 1rem;
 }
 
 /* END Toggle Claude */

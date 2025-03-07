@@ -257,4 +257,15 @@ function pasteToOutput() {
     document.getElementById("outputText1").value = inputText1; // Set the value to the output textarea
 }
 
+// UTILITY FUNCTION: Clear Text Boxes for page
+function clearPage() {
+    const empty = ""
+    document.getElementById("inputText1").value = empty;
+    document.getElementById("keyText1").value = empty;
+    document.getElementById("outputText1").value = empty;
+    document.getElementById("inputText2").value = empty;
+    document.getElementById("keyText2").value = empty;
+    document.getElementById("outputText2").value = empty;
+}
+
 // END Utility Functions Section
